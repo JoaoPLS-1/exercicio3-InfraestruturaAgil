@@ -1,0 +1,42 @@
+name: CI - Auditoria e HTMLHint
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auditar workspace antes do checkout
+        run: |
+          ls -R
+          test ! -f index.html
+          echo "Antes do checkout, index.html nao esta no workspace."
+
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Checar arquivos estaticos
+        run: |
+          ls -R
+          test -f index.html
+          test -f sobre.html
+          test -f contato.html
+          echo "Quantidade de arquivos HTML encontrados: $(find . -type f -name '*.html' | wc -l)"
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar sintaxe do HTML
+        run: npm run lint

@@ -1,0 +1,12 @@
+{
+  "name": "aula5-infraestrutura-agil",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aula 5: checkout, auditoria e linting com GitHub Actions",
+  "scripts": {
+    "lint": "htmlhint \"**/*.html\" --ignore \"node_modules/**\""
+  },
+  "devDependencies": {
+    "htmlhint": "1.9.2"
+  }
+}
