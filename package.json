@@ -1,8 +1,8 @@
 {
-  "name": "aula5-infraestrutura-agil",
+  "name": "exercicio3-infraestrutura-agil",
   "version": "1.0.0",
   "private": true,
-  "description": "Aula 5: checkout, auditoria e linting com GitHub Actions",
+  "description": "Exercício 3: pacote dist auditado e deploy com GitHub Actions",
   "scripts": {
     "lint": "htmlhint \"**/*.html\" --ignore \"node_modules/**\""
   },

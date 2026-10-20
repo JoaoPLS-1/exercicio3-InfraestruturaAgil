@@ -1,24 +1,24 @@
-# Aula 5 — Infraestrutura Ágil
+# Exercício 3 — Infraestrutura Ágil
 
-Atividade de checkout, auditoria e linting com GitHub Actions, baseada no site Nova das aulas anteriores.
+Site Nova com pacote de distribuição auditado e entrega pelo GitHub Actions.
 
-## Estrutura
+## Entrega
 
-- index.html: página inicial existente.
-- sobre.html e contato.html: páginas adicionais.
-- css/estilo.css: estilos compartilhados.
-- .htmlhintrc: regras de validação.
-- .github/workflows/ci.yml: CI em push, pull request e execução manual, com ubuntu-latest.
-- docs/exercicios.md: respostas e resultados dos experimentos.
-- docs/workflow-anterior.yml.txt: cópia da alteração local do workflow anterior.
+A esteira `.github/workflows/deploy.yml` valida o HTML, apaga a `dist` antiga, cria uma pasta limpa, copia os HTMLs e `assets/`, lista o pacote e inclui `css/`. A Auditoria de Qualidade usa `test -f` para cada página obrigatória e verifica também a imagem e o CSS. Apenas um pacote aprovado é armazenado como artefato e publicado no GitHub Pages. Se a auditoria falhar, o job de deploy é bloqueado por `needs: build`.
 
-## Validar localmente
+## Executar localmente
 
-Requer Node.js 22 e npm. Execute:
+Requer Node.js 22 e npm:
 
 ```sh
 npm ci
 npm run lint
 ```
 
-Abra index.html no navegador. A CI primeiro demonstra o workspace sem checkout, depois baixa o código, verifica os três arquivos, conta os HTMLs e executa o HTMLHint com versão exata no package-lock.json. A alternativa CLI prevista no PDF evita depender de uma Action de terceiros.
+Abra `index.html` no navegador e navegue pelo menu. O ícone em `assets/nova.svg` é usado no site e acompanha o pacote.
+
+## Experimento de falha
+
+O histórico registrará três fases: entrega inicial com `sobre.html`; renomeação para `quem-somos.html` mantendo a auditoria antiga para provocar falha; e correção da auditoria para obter aprovação novamente. A evidência exigida pelo enunciado será registrada em `docs/evidencias/`, com os links das execuções reais.
+
+Os arquivos anteriores em `docs/` são registros da atividade anterior e não constituem evidência deste exercício.

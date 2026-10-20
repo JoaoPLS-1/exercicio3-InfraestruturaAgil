@@ -1,0 +1,82 @@
+name: Entrega - Exercicio 3
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar HTML
+        run: npm run lint
+
+      - name: Montar pacote de distribuicao
+        shell: bash
+        run: |
+          rm -rf dist
+          mkdir dist
+          cp ./*.html dist/
+          cp -R assets dist/
+          ls -laR dist
+          cp -R css dist/
+
+      - name: Auditoria de Qualidade
+        shell: bash
+        run: |
+          for arquivo in index.html sobre.html contato.html; do
+            echo "Verificando dist/$arquivo"
+            test -f "dist/$arquivo" || { echo "::error file=dist/$arquivo::Arquivo obrigatorio nao encontrado: dist/$arquivo"; exit 1; }
+          done
+          test -f dist/assets/nova.svg
+          test -f dist/css/estilo.css
+          echo "Auditoria aprovada: paginas, imagem e estilos presentes em dist."
+
+      - name: Guardar pacote auditado
+        uses: actions/upload-artifact@v4
+        with:
+          name: distribuicao
+          path: dist/
+          if-no-files-found: error
+
+      - name: Preparar artefato do GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar pacote auditado
+        id: deployment
+        uses: actions/deploy-pages@v4
