@@ -19,6 +19,19 @@ Abra `index.html` no navegador e navegue pelo menu. O ícone em `assets/nova.svg
 
 ## Experimento de falha
 
-O histórico registrará três fases: entrega inicial com `sobre.html`; renomeação para `quem-somos.html` mantendo a auditoria antiga para provocar falha; e correção da auditoria para obter aprovação novamente. A evidência exigida pelo enunciado será registrada em `docs/evidencias/`, com os links das execuções reais.
+O histórico registra a entrega inicial com `sobre.html`, a renomeação para `quem-somos.html` mantendo a auditoria antiga para provocar falha e a correção da auditoria. O nome final da página é `quem-somos.html`, conforme a Parte 4 do enunciado; todos os menus usam esse nome.
+
+- [Entrega inicial aprovada](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions/runs/39514153210).
+- [Falha proposital da auditoria](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions/runs/39514242495): `dist/sobre.html` ausente; deploy ignorado.
+- [Print do erro no GitHub Actions](docs/evidencias/falha-auditoria.png), [log original](docs/evidencias/falha-build.log) e [resultado dos jobs](docs/evidencias/falha-jobs.json).
+- A correção troca o arquivo esperado por `quem-somos.html`; a execução final será vinculada após confirmação.
+
+Somente o print obrigatório da falha foi capturado. Os logs e metadados foram obtidos da API do GitHub, e a imagem mostra a página real do job com erro.
+
+## Publicação
+
+- [Site no GitHub Pages](https://joaopls-1.github.io/exercicio3-InfraestruturaAgil/).
+- [Histórico de execuções](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions).
+- O artefato `distribuicao` contém somente os HTMLs, `assets/` e `css/`; arquivos de desenvolvimento e evidências não são publicados no site.
 
 Os arquivos anteriores em `docs/` são registros da atividade anterior e não constituem evidência deste exercício.

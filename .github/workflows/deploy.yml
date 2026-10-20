@@ -45,7 +45,7 @@ jobs:
       - name: Auditoria de Qualidade
         shell: bash
         run: |
-          for arquivo in index.html sobre.html contato.html; do
+          for arquivo in index.html quem-somos.html contato.html; do
             echo "Verificando dist/$arquivo"
             test -f "dist/$arquivo" || { echo "::error file=dist/$arquivo::Arquivo obrigatorio nao encontrado: dist/$arquivo"; exit 1; }
           done
