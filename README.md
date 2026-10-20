@@ -24,7 +24,7 @@ O histórico registra a entrega inicial com `sobre.html`, a renomeação para `q
 - [Entrega inicial aprovada](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions/runs/39514153210).
 - [Falha proposital da auditoria](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions/runs/39514242495): `dist/sobre.html` ausente; deploy ignorado.
 - [Print do erro no GitHub Actions](docs/evidencias/falha-auditoria.png), [log original](docs/evidencias/falha-build.log) e [resultado dos jobs](docs/evidencias/falha-jobs.json).
-- A correção troca o arquivo esperado por `quem-somos.html`; a execução final será vinculada após confirmação.
+- [Correção aprovada e deploy concluído](https://github.com/JoaoPLS-1/exercicio3-InfraestruturaAgil/actions/runs/39514390311): auditoria atualizada para `quem-somos.html`, com todos os jobs aprovados.
 
 Somente o print obrigatório da falha foi capturado. Os logs e metadados foram obtidos da API do GitHub, e a imagem mostra a página real do job com erro.
 
@@ -35,3 +35,9 @@ Somente o print obrigatório da falha foi capturado. Os logs e metadados foram o
 - O artefato `distribuicao` contém somente os HTMLs, `assets/` e `css/`; arquivos de desenvolvimento e evidências não são publicados no site.
 
 Os arquivos anteriores em `docs/` são registros da atividade anterior e não constituem evidência deste exercício.
+## Verificações realizadas
+
+- HTMLHint: três páginas aprovadas, sem erros.
+- Edge em modo headless: início, quem somos e contato carregados localmente.
+- GitHub Pages: páginas finais, CSS e SVG acessíveis com HTTP 200.
+- Teste de falha real: auditoria vermelha e deploy bloqueado; correção posterior com entrega verde.
